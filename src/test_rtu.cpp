@@ -1,7 +1,7 @@
 #include "NP-15C030R.c"
 #include <iostream>
 
-int device_addr = 1;
+int device_addr = 0;
 
 
 int main(int argc, char *argv[])
@@ -18,12 +18,12 @@ int main(int argc, char *argv[])
         strcpy(port, argv[1]);
     else
         strcpy(port, PORT_NAME);
-    printf("libmodbus modbu-rtu master demo: %s, 19200, N, 8, 1\n", port);
+    printf("libmodbus modbu-rtu master demo: %s, 19200, N, 8, 2\n", port);
 
 
     // modbus_new_rtu(const char *device, int baud, char parity, int data_bit, int stop_bit);
     // no parity, 8 data bits, 1 stop bit/
-    mb = modbus_new_rtu(port, 19200, 'N', 8, 1);
+    mb = modbus_new_rtu(port, 19200, 'N', 8, 2);
 
     modbus_set_debug(mb, TRUE);
     modbus_set_response_timeout(mb, 0.5, 0);
@@ -61,32 +61,25 @@ int main(int argc, char *argv[])
         {
         
         case '1':
-            printf("Changing destination of commands sent to 1");
-            device_addr=1;
-            break;
-
-        case '2':
-            printf("Changing destination of commands sent to 2");
-            device_addr=2;
-            break;
-
-        case '3':
-            printf("Changing destination of commands sent to 3");
-            device_addr=3;
+            printf("Changing destination of commands sent to 18");
+            device_addr=18;
             break;
 
         case '/':
             printf("\nREAD REG_PRESSURE from 18 : ");
-            read_pressure(mb, 21, REG_PRESSURE);
-            read_pressure_value(mb, 21, REG_OUT1);
-            read_pressure_value(mb, 21, REG_OUT1_UPPERLIM);
-            read_pressure_value(mb, 21, REG_OUT1_LOWERLIM);
-            read_pressure_value(mb, 21, REG_OUT1_MODE);
-            read_pressure_value(mb, 21, REG_DISP_COLOR);
-            read_pressure_value(mb, 21, REG_DISP_UNITS);
-            read_pressure_value(mb, 21, REG_DISP_NONC);
-
-            
+            read_pressure(mb, 18, REG_PRESSURE);
+            // int ind;
+            // for(ind = 0; ind < 100; ind++){
+            //     read_pressure(mb, ind, REG_PRESSURE);
+            // }
+            // read_pressure(mb, 18, REG_PRESSURE);
+            // read_pressure_value(mb, device_addr, REG_OUT1);
+            // read_pressure_value(mb, device_addr, REG_OUT1_UPPERLIM);
+            // read_pressure_value(mb, device_addr, REG_OUT1_LOWERLIM);
+            // read_pressure_value(mb, device_addr, REG_OUT1_MODE);
+            // read_pressure_value(mb, device_addr, REG_DISP_COLOR);
+            // read_pressure_value(mb, device_addr, REG_DISP_UNITS);
+            // read_pressure_value(mb, device_addr, REG_DISP_NONC);
 
             // printf("\nREAD REG_PRESSURE from 19: ");
             // ret_uint32 = read_value(mb, 19, REG_PRESSURE);

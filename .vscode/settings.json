@@ -2,6 +2,7 @@
     "files.associations": {
         "modbus.h": "c",
         "iostream": "cpp",
-        "zdxxmp.c": "cpp"
+        "zdxxmp.c": "cpp",
+        "random": "cpp"
     }
 }
